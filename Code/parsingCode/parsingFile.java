@@ -141,13 +141,15 @@ public class parsingFile{
 
 	//	Set<MovieRatings> movieSet = new HashSet<MovieRatings>();
 
-		ST<Integer, Set<MovieRatings> > ratingsMap = [];
+		ST<Integer, Set<MovieRatings> > ratingsMap = new ST();
 
 		counter = 0;
 
 		try
   				{BufferedReader reader = new BufferedReader(new FileReader(actorMovieFile));
    					 String line;
+
+
 
 
 
@@ -217,6 +219,11 @@ public class parsingFile{
 		System.out.println(movieFile);
 
 		System.out.println(actorMovieFile);		
+
+
+
+		  for (int s : ratingsMap.keys())
+            StdOut.println(s + " " + ratingsMap.get(s).toString());
 
 	}
 
