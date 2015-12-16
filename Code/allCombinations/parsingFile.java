@@ -3,26 +3,27 @@ import java.util.Scanner;
 import java.util.*;
 
 
-public class Combinations{
-    
-    File actorFile;
-    File movieFile;
-    File actorMovieFile;
-    int numberOfActors = 0;
-    ArrayList<Screening> possibleScreenings = new ArrayList<Screening>();
-    ST<Integer, ArrayList<MovieRatings> > ratingsMap = new ST();  
-    String[] actors;
-    
-    public Combinations(String f1, String f2, String f3){
-        actorFile = new File(f1);
-        movieFile = new File(f2);
-        actorMovieFile = new File(f3);
-    }
-    
-    public void run(){
+
+
+public class parsingFile{
+    public static void main(String[] args) throws FileNotFoundException {
+        
+        //read number of actor movie relations
+        //String actorsFileName=args[0];
+        //File actorfile = new File(args[0]);
+        //File movieFile= new File(args[1]);¨
+        //File actorMovieFile = new File(args[2]);
+        
+        File actorfile = new File("1.csv");
+        File movieFile = new File("2.csv");
+        File actorMovieFile = new File("3.csv");
+        int m = 2;
+        
+        int numberOfActors = 0;
+        
         //just counting number of lines = numberOfActors
         try
-        {BufferedReader reader = new BufferedReader(new FileReader(actorFile));
+        {BufferedReader reader = new BufferedReader(new FileReader(actorfile));
             String line;
             while ((line = reader.readLine()) != null)
             {
@@ -33,18 +34,18 @@ public class Combinations{
         }
         catch (Exception e)
         {
-            System.err.format("Exception occurred trying to read '%s'.", actorFile);
+            System.err.format("Exception occurred trying to read '%s'.", actorfile);
             e.printStackTrace();  
         }
         
         //System.out.println("Number of actors are: "+ numberOfActors );
         
-        actors = new String[numberOfActors];
+        String [] actors = new String[numberOfActors];
         
         int counter = 0;
         
         try
-        {BufferedReader reader = new BufferedReader(new FileReader(actorFile));
+        {BufferedReader reader = new BufferedReader(new FileReader(actorfile));
             String line;
             while ((line = reader.readLine()) != null)
             {
@@ -56,7 +57,7 @@ public class Combinations{
         }
         catch (Exception e)
         {
-            System.err.format("Exception occurred trying to read '%s'.", actorFile);
+            System.err.format("Exception occurred trying to read '%s'.", actorfile);
             e.printStackTrace();
         }
         
@@ -110,6 +111,9 @@ public class Combinations{
         int numberOfActorsInMovies=0;
         
         
+        
+//  Set<MovieRatings> [] setOfMovieRatings = new HashSet[numberOfActors]<MovieRatings>();
+        
         //just counting number of lines = numberOfActorsInMovies
         try
         {BufferedReader reader = new BufferedReader(new FileReader(actorMovieFile));
@@ -127,6 +131,13 @@ public class Combinations{
             e.printStackTrace();  
         }
         
+        // System.out.println("Number of actor movie relations are: "+ numberOfActorsInMovies );
+        
+        //MovieRatings [] actorMovieRel = new MovieRatings[numberOfActorsInMovies];
+        
+        // Set<MovieRatings> movieSet = new HashSet<MovieRatings>();
+        
+        ST<Integer, ArrayList<MovieRatings> > ratingsMap = new ST();
         
         counter = 0;
         
@@ -136,7 +147,7 @@ public class Combinations{
             
             while ((line = reader.readLine()) != null)
             {
-                //System.out.println(line);
+                System.out.println("TEST" + line);
                 
                 MovieRatings thisMovieRating = new MovieRatings();
                 
@@ -163,7 +174,8 @@ public class Combinations{
                     ratingsMap.put(actorID, set);
                     
                 }
- 
+                
+                
 //            actorMovieRel[counter]= thisMovieRating;
                 
                 counter++;
@@ -176,36 +188,49 @@ public class Combinations{
             e.printStackTrace();
         }
         
-    }
-    
-    public ArrayList<Screening> findCombinations(int m){
+
+        
+        
         for (int s : ratingsMap.keys()){
             
-            Integer[] screen = new Integer[m];
-            combinations(0, 0, ratingsMap.get(s), screen, 0.0, m);
+            
+            
+            
         }
+            
+     
         
-        return possibleScreenings;
+        
+        
+     //   Movie [] allCombinationsActorMovie = new Movie[10];
+        
+        
+        
+    //    System.out.println(actorfile);
+        
+   //     System.out.println(movieFile);
+        
+   //     System.out.println(actorMovieFile);  
+        
+        
+        
+
+        
     }
     
-    public void print(){
-        for(int i = 0; i < possibleScreenings.size(); i++){
-           System.out.println(possibleScreenings.get(i).toString(actors));
-       
-        }
         
-    }
-    
-    
-    private void combinations(int g, int index, ArrayList<MovieRatings> movies, Integer[] temp, double rating, int m){
-        for(int i = index; i < movies.size(); i++){
-            temp[g] = movies.get(i).movieID;           
-            if (g < m-1)
-                combinations(g + 1, i + 1, movies, temp, rating + movies.get(i).rating, m);
-            else
-                possibleScreenings.add(new Screening(movies.get(0).actor, temp, rating + movies.get(i).rating));  
+    public static void combinations(int index, String[] movies, String temp, int m){
+        String newTemp;        
+        
+        for(int i = index; i < movies.length; i++){
+
+            newTemp = temp + movies[i];
+            
+            if (newTemp.length() < m)
+                combinations(i + 1, movies, newTemp, m);
+            else{
+               System.out.println(newTemp);
+            }     
         }        
     }
-    
-
 }

@@ -14,11 +14,11 @@
   }
   
   public String toString(String[] actors){
-      
       String m = ", ";
-      m += movies[0] + ", " + movies[1] + " ";
-      return actorId + m + rating;
-      
+      for(int i = 0; i < movies.length; i++){
+          m += movies[i] + ", ";
+      }
+      return actors[actorId] + m + rating;      
   }
 
  }

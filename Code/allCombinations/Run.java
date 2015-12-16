@@ -4,9 +4,7 @@ public class Run{
         
         Combinations c = new Combinations("1.csv", "2.csv", "3.csv");
         c.run();
-        c.findCombinations(2);
+        c.findCombinations(3);
         c.print();
-    
-    }
-    
+    }    
 }
