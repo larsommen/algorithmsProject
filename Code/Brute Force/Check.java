@@ -3,7 +3,7 @@ import java.util.*;
 public class Check{
     
     int m;
-
+    
     public Check(int m){
         this.m = m;
     }
@@ -27,7 +27,7 @@ public class Check{
             if(checkScreenings(possibleCombi)){
                 result.add(possibleCombi);
             }
-        
+            
         }
         
         
@@ -37,14 +37,15 @@ public class Check{
     
     
     public boolean checkScreenings(ArrayList<Screening> screenings){
+
         Hashtable movies = new Hashtable();
         Screening s = null;
         Integer movie;
         for(int i = 0; i < screenings.size(); i++){
+            s = screenings.get(i);
             for(int g = 0; g < m; g++){
-                s = screenings.get(i);
                 movie = s.getMovie(g);
-                if(movies.contains(movie)){
+                if(movies.containsKey(movie)){
                     return false;
                 }
                 else
@@ -54,7 +55,31 @@ public class Check{
         return true;
     }
     
+    public ArrayList<Screening> checkGreedy(ArrayList<Screening> screenings){
+        ArrayList<Screening> result = new ArrayList<Screening>();
+        Hashtable movies = new Hashtable();
+        Screening s = null;
+        boolean moviesNotSelected = true;
+        
+        for(int i = 0; i < screenings.size(); i++){
+            s = screenings.get(i);
+            moviesNotSelected = true;
+            for(int g = 0; g < m; g++){
+                if(movies.containsKey(s.getMovie(g))){
+                    moviesNotSelected = false;
+                    break;
+                }                    
+            } 
+            if(moviesNotSelected){
+                result.add(s);
+                for(int g = 0; g < m; g++){
+                    movies.put(s.getMovie(g), 1); 
+                }
+            }
+        }
+        return result;
+    }
     
-
-
+    
+    
 }

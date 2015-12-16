@@ -17,6 +17,10 @@
       return movies[i];
   }
   
+  public double getRating(){
+      return rating;
+  }
+  
   public String toString(){
       String m = ", ";
       for(int i = 0; i < movies.length; i++){

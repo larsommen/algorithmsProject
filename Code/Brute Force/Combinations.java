@@ -165,7 +165,7 @@ public class Combinations{
                     ratingsMap.put(actorID, set);
                     
                 }
- 
+                
 //            actorMovieRel[counter]= thisMovieRating;
                 
                 counter++;
@@ -192,8 +192,8 @@ public class Combinations{
     
     public void print(){
         for(int i = 0; i < possibleScreenings.size(); i++){
-           System.out.println(possibleScreenings.get(i).toString());
-       
+            System.out.println(possibleScreenings.get(i).toString());
+            
         }
         
     }
@@ -209,24 +209,38 @@ public class Combinations{
         }        
     }
     
-    public void possibleCombinations(){
+    public void bestCombinations(){
         Check c = new Check(m);
-        //System.out.println(possibleScreenings);
-        ArrayList<ArrayList<Screening>> screenings = c.getPossibleScreenings(possibleScreenings);
-        String line;
         
-        System.out.println(screenings.size());
-        System.out.println(screenings.get(0).get(0).toString());
+        ArrayList<ArrayList<Screening>> screenings = c.getPossibleScreenings(possibleScreenings);
+        String line = "";
+        double bestRating = -1;
+        int best = -1;
+        double tempRating = -1.0;
+        
         for(int i = 0; i < screenings.size(); i++){
-            line  = "";
-            ArrayList <Screening> as = screenings.get(i);
-            for(int g = 0; i < screenings.get(i).size(); g++){
-                line += as.get(g).toString() + ": ";
+            tempRating = 0.0;
+            line = "";
+            //ArrayList <Screening> as = ;
+            for(int g = 0; g < screenings.get(i).size(); g++){
+                tempRating += screenings.get(i).get(g).getRating();
+                line += screenings.get(i).get(g).toString() + ": ";
             }
-            System.out.println(line);
+            //System.out.println(line);
+            if(tempRating > bestRating){
+                bestRating = tempRating;
+                best = i;
+            }
+            
         }
-    
+        
+        line = "";
+        System.out.println("Rating:" + bestRating);
+        for(int g = 0; g < screenings.get(best).size(); g++){
+            line += screenings.get(best).get(g).toString() + ": ";
+        }
+        System.out.println(line);
     }
     
-
+    
 }
