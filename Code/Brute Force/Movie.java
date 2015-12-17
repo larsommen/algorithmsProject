@@ -1,7 +1,5 @@
-	public class Movie{
-
-		int actorId;
-		int movieId;
-		double rating;
-
-	}
+ public class Movie{
+  int actor;
+  int movieID;
+  double rating;
+ }

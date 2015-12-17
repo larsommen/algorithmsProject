@@ -22,11 +22,11 @@
   }
   
   public String toString(){
-      String m = ", ";
+      String m = "";
       for(int i = 0; i < movies.length; i++){
           m += movies[i] + ", ";
       }
-      return actorId + m + rating;      
+      return String.format("Actor: " + actorId + ", Movies: " + m + "Rating: %.2f", rating);      
   }
 
  }

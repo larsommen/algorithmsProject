@@ -14,27 +14,8 @@ public class PowerSet{
     }
     
     private void addElementes(){
-        for(int i = 0; i < w; i++){
+        for(int i = 0; i < w; i++)
             set.add(i);
-        }
-    }
-    
-    public void print(){
-        ps = getPowerSet(set);
-        
-        for(Set<Integer> combi : ps){
-            System.out.println(combi);
-        }
-        
-    }
-    
-    public void print2(ArrayList<Set <Integer>> pss){
-        //ps = getPowerSet(set);
-        
-        for(Set<Integer> combi : pss){
-            System.out.println(combi);
-        }
-        
     }
     
     public ArrayList<Set <Integer>> powerSet(){
@@ -44,21 +25,19 @@ public class PowerSet{
     
     public ArrayList<Set <Integer>> getPowerSet(Set<Integer> s){
         ArrayList<Set<Integer>> result = new ArrayList<Set<Integer>>();
+        Set<Integer> temp;
         for (Integer element : s) {
             int size = result.size();
             for(int i = 0; i < size; i++){
-                Set<Integer> temp = new HashSet<Integer>(result.get(i));
+                temp = new HashSet<Integer>(result.get(i));
                 temp.add(element);
                 result.add(temp);
             }
-            
-            Set<Integer> e = new HashSet<Integer>();
-            e.add(element);
-            result.add(e);       
-        }
-        
+            temp = new HashSet<Integer>();
+            temp.add(element);
+            result.add(temp);       
+        }   
         return result;
-    }
-    
+    }    
 }
 

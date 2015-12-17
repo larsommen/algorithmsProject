@@ -8,78 +8,38 @@ public class Check{
         this.m = m;
     }
     
-    
-    public ArrayList<ArrayList<Screening>> getPossibleScreenings(ArrayList<Screening> allScreenings){
+    public ArrayList<ArrayList<Screening>> getPossibleCombinations(ArrayList<Screening> allScreenings){
         ArrayList<Screening> possibleCombi;
         PowerSet ps = new PowerSet(allScreenings.size());
         ArrayList<Set <Integer>> allCombinations = ps.powerSet();
         
         ArrayList<ArrayList<Screening>> result = new ArrayList<ArrayList<Screening>>();
-        
-        
+           
         for(int i = 0; i < allCombinations.size(); i++){
             possibleCombi = new ArrayList<Screening>();
-            for(Integer element : allCombinations.get(i)){
-                //System.out.print(element);
+            for(Integer element : allCombinations.get(i))
                 possibleCombi.add(allScreenings.get(element));
-            }
-            
-            if(checkScreenings(possibleCombi)){
+                        
+            if(checkCombination(possibleCombi))
                 result.add(possibleCombi);
-            }
-            
         }
-        
-        
         return result;
-        
     }
     
-    
-    public boolean checkScreenings(ArrayList<Screening> screenings){
-
-        Hashtable movies = new Hashtable();
+    public boolean checkCombination(ArrayList<Screening> combination){
+        Hashtable<Integer, Integer> movies = new Hashtable<Integer, Integer>();
         Screening s = null;
         Integer movie;
-        for(int i = 0; i < screenings.size(); i++){
-            s = screenings.get(i);
+        for(int i = 0; i < combination.size(); i++){
+            s = combination.get(i);
             for(int g = 0; g < m; g++){
                 movie = s.getMovie(g);
-                if(movies.containsKey(movie)){
+                if(movies.containsKey(movie))
                     return false;
-                }
                 else
                     movies.put(movie, 1);
-            } 
-        }
-        return true;
-    }
-    
-    public ArrayList<Screening> checkGreedy(ArrayList<Screening> screenings){
-        ArrayList<Screening> result = new ArrayList<Screening>();
-        Hashtable movies = new Hashtable();
-        Screening s = null;
-        boolean moviesNotSelected = true;
-        
-        for(int i = 0; i < screenings.size(); i++){
-            s = screenings.get(i);
-            moviesNotSelected = true;
-            for(int g = 0; g < m; g++){
-                if(movies.containsKey(s.getMovie(g))){
-                    moviesNotSelected = false;
-                    break;
-                }                    
-            } 
-            if(moviesNotSelected){
-                result.add(s);
-                for(int g = 0; g < m; g++){
-                    movies.put(s.getMovie(g), 1); 
-                }
             }
         }
-        return result;
-    }
-    
-    
-    
+        return true;
+    }  
 }
