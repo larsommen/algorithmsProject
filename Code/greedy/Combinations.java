@@ -3,10 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD
-=======
-//package greedy;
->>>>>>> bab05076bde257f3c1c6fdae5cb41a1957ce5cfa
 
 import java.io.*;
 import java.util.Scanner;

@@ -15,7 +15,7 @@ public class Run{
     public static void main(String[] args){
         String actorFile = "/Users/arangholm/algorithmsProject/Code/greedy/1.csv";
         String movieFile = "/Users/arangholm/algorithmsProject/Code/greedy/2.csv";
-        String actorMovieFile = "detVirker4.csv";
+        String actorMovieFile = "asr.csv";
         
         Combinations c = new Combinations(actorFile, movieFile, actorMovieFile, 3);
         c.run();
