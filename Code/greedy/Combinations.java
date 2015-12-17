@@ -193,7 +193,7 @@ public class Combinations{
             Integer[] screen = new Integer[m];
             combinations(0, 0, ratingsMap.get(s), screen, 0.0, m);
         }
-        
+	System.out.println("Posible Screenings: "+ possibleScreenings.size());        
         return possibleScreenings;
     }
     
