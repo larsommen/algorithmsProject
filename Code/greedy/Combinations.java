@@ -57,7 +57,7 @@ public class Combinations{
             String line;
             while ((line = reader.readLine()) != null)
             {
-//                System.out.println(line);
+                //System.out.println(line);
                 actors[counter]= line;
                 counter++;
             }
@@ -100,7 +100,7 @@ public class Combinations{
             while ((line = reader.readLine()) != null)
             {
                 MovieRatings thisRating = new MovieRatings();
-//                          System.out.println(line);
+                //          System.out.println(line);
                 String[] parts = line.split(",");
                 thisRating.movieID = Integer.parseInt(parts[0]);
                 thisRating.movieTitle = parts[1];
@@ -172,7 +172,7 @@ public class Combinations{
                     ratingsMap.put(actorID, set);
                     
                 }
- 
+                
 //            actorMovieRel[counter]= thisMovieRating;
                 
                 counter++;
@@ -199,7 +199,8 @@ public class Combinations{
     
     public void print(){
         for(int i = 0; i < possibleScreenings.size(); i++){
-           System.out.println(possibleScreenings.get(i).toString());
+            System.out.println(possibleScreenings.get(i).toString());
+            
         }
         
     }
@@ -215,69 +216,76 @@ public class Combinations{
         }        
     }
     
+    public void bestCombinations(){
+        Check c = new Check(m);
+        
+        ArrayList<ArrayList<Screening>> screenings = c.getPossibleScreenings(possibleScreenings);
+        String line = "";
+        double bestRating = -1;
+        int best = -1;
+        double tempRating = -1.0;
+        
+        for(int i = 0; i < screenings.size(); i++){
+            tempRating = 0.0;
+            line = "";
+            //ArrayList <Screening> as = ;
+            for(int g = 0; g < screenings.get(i).size(); g++){
+                tempRating += screenings.get(i).get(g).getRating();
+                line += screenings.get(i).get(g).toString() + ": ";
+            }
+            //System.out.println(line);
+            if(tempRating > bestRating){
+                bestRating = tempRating;
+                best = i;
+            }
+            
+        }
+        
+        line = "";
+        System.out.println("Rating:" + bestRating);
+        for(int g = 0; g < screenings.get(best).size(); g++){
+            line += screenings.get(best).get(g).toString() + ": ";
+        }
+        System.out.println(line);
+    }
     public void sortScreenings() {
 //        System.out.println("Before Sorting:");
-//	   for(Screening scr: possibleScreenings){
-//			System.out.println(scr.getRating());
+//     for(Screening scr: possibleScreenings){
+//          System.out.println(scr.getRating());
 //           }
 //           
         Collections.sort(possibleScreenings, ScreeningRatingComparator);
         
 //        System.out.println("\nArrayList in descending order:");
-	   for(Screening scr: possibleScreenings){
-			System.out.println(scr.getRating());
-		}
+       for(Screening scr: possibleScreenings){
+            System.out.println(scr.getRating());
+        }
     }
     public static Comparator<Screening> ScreeningRatingComparator 
                           = new Comparator<Screening>() {
 
-	    public int compare(Screening screening1, Screening screening2) {
-	    	
-	      double screeningRating1 = screening1.getRating();
-	      double screeningRating2 = screening2.getRating();
-	      
-	      //ascending order
-//	      return screeningRating1.compareTo(screeningRating2);
-	      
-	      //descending order
-	      return Double.compare(screeningRating2,screeningRating1);
-	    }
+        public int compare(Screening screening1, Screening screening2) {
+            
+          double screeningRating1 = screening1.getRating();
+          double screeningRating2 = screening2.getRating();
+          
+          //ascending order
+//        return screeningRating1.compareTo(screeningRating2);
+          
+          //descending order
+          return Double.compare(screeningRating2,screeningRating1);
+        }
     };
     
     public void greedySelect() {
+        Check checker = new Check(m);
         ArrayList<Screening> selectedSets = new ArrayList<Screening>();
-        selectedSets = checkGreedy(possibleScreenings); 
+        selectedSets = checker.checkGreedy(possibleScreenings); 
         
         System.out.println("Solution:");
                 for(int j = 0; j < selectedSets.size(); j++){
                 System.out.println(selectedSets.get(j).toString());
                 }
-    }
-    
-    public ArrayList<Screening> checkGreedy(ArrayList<Screening> screenings){
-        ArrayList<Screening> result = new ArrayList<Screening>();
-        Hashtable movies = new Hashtable();
-        Screening s = null;
-        boolean moviesNotSelected = true;
-        
-        for(int i = 0; i < screenings.size(); i++){
-            s = screenings.get(i);
-            moviesNotSelected = true;
-            for(int g = 0; g < m; g++){
-                if(movies.containsKey(s.getMovie(g))){
-                    moviesNotSelected = false;
-                    break;
-                }                    
-            } 
-            if(moviesNotSelected){
-                result.add(s);
-                for(int g = 0; g < m; g++){
-                    movies.put(s.getMovie(g), 1); 
-                }
-            }
-        }
-        System.out.println(result.size());
-        return result;
     }
     
 }
