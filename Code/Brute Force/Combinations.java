@@ -129,6 +129,7 @@ public class Combinations{
             e.printStackTrace();  
         }
         
+        System.out.println("n: " + numberOfActorsInMovies);
         
         counter = 0;
         

@@ -5,7 +5,7 @@ public class Run{
         Combinations c = new Combinations("1.csv", "2.csv", "3.csv", 3);
         c.run();
         c.findCombinations(3);
-        c.print();
+        //c.print();
         c.bestCombinations();
         //c.print();
         
