@@ -1,40 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-<<<<<<< HEAD
-=======
-//package greedy;
->>>>>>> bab05076bde257f3c1c6fdae5cb41a1957ce5cfa
-
 import java.io.*;
 import java.util.Scanner;
 import java.util.*;
 
 
-public class Combinations{
-    
-    File actorFile;
-    File movieFile;
-    File actorMovieFile;
-    int numberOfActors = 0;
-    ArrayList<Screening> possibleScreenings = new ArrayList<Screening>();
-    ST<Integer, ArrayList<MovieRatings> > ratingsMap = new ST();  
-    String[] actors;
-    int m;
-    
-    public Combinations(String f1, String f2, String f3, int m){
-        actorFile = new File(f1);
-        movieFile = new File(f2);
-        actorMovieFile = new File(f3);
-        this.m = m;
-    }
-    
-    public void run(){
+
+
+public class parsingFile{
+    public static void main(String[] args) throws FileNotFoundException {
+        
+        //read number of actor movie relations
+        //String actorsFileName=args[0];
+        //File actorfile = new File(args[0]);
+        //File movieFile= new File(args[1]);
+        //File actorMovieFile = new File(args[2]);
+        
+        File actorfile = new File("1.csv");
+        File movieFile = new File("2.csv");
+        File actorMovieFile = new File("3.csv");
+        int m = 2;
+        
+        int numberOfActors = 0;
+        
         //just counting number of lines = numberOfActors
         try
-        {BufferedReader reader = new BufferedReader(new FileReader(actorFile));
+        {BufferedReader reader = new BufferedReader(new FileReader(actorfile));
             String line;
             while ((line = reader.readLine()) != null)
             {
@@ -45,18 +34,18 @@ public class Combinations{
         }
         catch (Exception e)
         {
-            System.err.format("Exception occurred trying to read '%s'.", actorFile);
+            System.err.format("Exception occurred trying to read '%s'.", actorfile);
             e.printStackTrace();  
         }
         
         //System.out.println("Number of actors are: "+ numberOfActors );
         
-        actors = new String[numberOfActors];
+        String [] actors = new String[numberOfActors];
         
         int counter = 0;
         
         try
-        {BufferedReader reader = new BufferedReader(new FileReader(actorFile));
+        {BufferedReader reader = new BufferedReader(new FileReader(actorfile));
             String line;
             while ((line = reader.readLine()) != null)
             {
@@ -68,7 +57,7 @@ public class Combinations{
         }
         catch (Exception e)
         {
-            System.err.format("Exception occurred trying to read '%s'.", actorFile);
+            System.err.format("Exception occurred trying to read '%s'.", actorfile);
             e.printStackTrace();
         }
         
@@ -122,6 +111,9 @@ public class Combinations{
         int numberOfActorsInMovies=0;
         
         
+        
+//  Set<MovieRatings> [] setOfMovieRatings = new HashSet[numberOfActors]<MovieRatings>();
+        
         //just counting number of lines = numberOfActorsInMovies
         try
         {BufferedReader reader = new BufferedReader(new FileReader(actorMovieFile));
@@ -139,6 +131,13 @@ public class Combinations{
             e.printStackTrace();  
         }
         
+        // System.out.println("Number of actor movie relations are: "+ numberOfActorsInMovies );
+        
+        //MovieRatings [] actorMovieRel = new MovieRatings[numberOfActorsInMovies];
+        
+        // Set<MovieRatings> movieSet = new HashSet<MovieRatings>();
+        
+        ST<Integer, ArrayList<MovieRatings> > ratingsMap = new ST();
         
         counter = 0;
         
@@ -148,7 +147,7 @@ public class Combinations{
             
             while ((line = reader.readLine()) != null)
             {
-                //System.out.println(line);
+                System.out.println("TEST" + line);
                 
                 MovieRatings thisMovieRating = new MovieRatings();
                 
@@ -176,6 +175,7 @@ public class Combinations{
                     
                 }
                 
+                
 //            actorMovieRel[counter]= thisMovieRating;
                 
                 counter++;
@@ -188,107 +188,49 @@ public class Combinations{
             e.printStackTrace();
         }
         
-    }
-    
-    public ArrayList<Screening> findCombinations(int m){
+
+        
+        
         for (int s : ratingsMap.keys()){
             
-            Integer[] screen = new Integer[m];
-            combinations(0, 0, ratingsMap.get(s), screen, 0.0, m);
-        }
-        
-        return possibleScreenings;
-    }
-    
-    public void print(){
-        for(int i = 0; i < possibleScreenings.size(); i++){
-            System.out.println(possibleScreenings.get(i).toString());
+            
+            
             
         }
+            
+     
+        
+        
+        
+     //   Movie [] allCombinationsActorMovie = new Movie[10];
+        
+        
+        
+    //    System.out.println(actorfile);
+        
+   //     System.out.println(movieFile);
+        
+   //     System.out.println(actorMovieFile);  
+        
+        
+        
+
         
     }
     
-    
-    private void combinations(int g, int index, ArrayList<MovieRatings> movies, Integer[] temp, double rating, int m){
-        for(int i = index; i < movies.size(); i++){
-            temp[g] = movies.get(i).movieID;           
-            if (g < m-1)
-                combinations(g + 1, i + 1, movies, temp, rating + movies.get(i).rating, m);
-            else
-                possibleScreenings.add(new Screening(movies.get(0).actor, temp, rating + movies.get(i).rating));  
+        
+    public static void combinations(int index, String[] movies, String temp, int m){
+        String newTemp;        
+        
+        for(int i = index; i < movies.length; i++){
+
+            newTemp = temp + movies[i];
+            
+            if (newTemp.length() < m)
+                combinations(i + 1, movies, newTemp, m);
+            else{
+               System.out.println(newTemp);
+            }     
         }        
     }
-    
-    public void bestCombinations(){
-        Check c = new Check(m);
-        
-        ArrayList<ArrayList<Screening>> screenings = c.getPossibleScreenings(possibleScreenings);
-        String line = "";
-        double bestRating = -1;
-        int best = -1;
-        double tempRating = -1.0;
-        
-        for(int i = 0; i < screenings.size(); i++){
-            tempRating = 0.0;
-            line = "";
-            //ArrayList <Screening> as = ;
-            for(int g = 0; g < screenings.get(i).size(); g++){
-                tempRating += screenings.get(i).get(g).getRating();
-                line += screenings.get(i).get(g).toString() + ": ";
-            }
-            //System.out.println(line);
-            if(tempRating > bestRating){
-                bestRating = tempRating;
-                best = i;
-            }
-            
-        }
-        
-        line = "";
-        System.out.println("Rating:" + bestRating);
-        for(int g = 0; g < screenings.get(best).size(); g++){
-            line += screenings.get(best).get(g).toString() + ": ";
-        }
-        System.out.println(line);
-    }
-    public void sortScreenings() {
-//        System.out.println("Before Sorting:");
-//     for(Screening scr: possibleScreenings){
-//          System.out.println(scr.getRating());
-//           }
-//           
-        Collections.sort(possibleScreenings, ScreeningRatingComparator);
-        
-//        System.out.println("\nArrayList in descending order:");
-       for(Screening scr: possibleScreenings){
-            System.out.println(scr.getRating());
-        }
-    }
-    public static Comparator<Screening> ScreeningRatingComparator 
-                          = new Comparator<Screening>() {
-
-        public int compare(Screening screening1, Screening screening2) {
-            
-          double screeningRating1 = screening1.getRating();
-          double screeningRating2 = screening2.getRating();
-          
-          //ascending order
-//        return screeningRating1.compareTo(screeningRating2);
-          
-          //descending order
-          return Double.compare(screeningRating2,screeningRating1);
-        }
-    };
-    
-    public void greedySelect() {
-        Check checker = new Check(m);
-        ArrayList<Screening> selectedSets = new ArrayList<Screening>();
-        selectedSets = checker.checkGreedy(possibleScreenings); 
-        
-        System.out.println("Solution:");
-                for(int j = 0; j < selectedSets.size(); j++){
-                System.out.println(selectedSets.get(j).toString());
-                }
-    }
-    
 }
