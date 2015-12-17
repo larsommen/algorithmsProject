@@ -7,7 +7,7 @@ print str(idnumber) +", "+firstName + " " + lastName
 lastName = lastName.rstrip('\n')
 for x in range(0, 10):
 	inputFile.readline()
-for x in range(0, 10):
+for x in range(0, 40):
 	idnumber=idnumber+1
 	firstName = lastName
 	lastName = inputFile.readline();
