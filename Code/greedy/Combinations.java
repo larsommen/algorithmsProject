@@ -246,7 +246,7 @@ public class Combinations{
         for(int g = 0; g < screenings.get(best).size(); g++){
             line += screenings.get(best).get(g).toString() + ": ";
         }
-        System.out.println(line);
+       // System.out.println(line);
     }
     public void sortScreenings() {
 //        System.out.println("Before Sorting:");
@@ -258,7 +258,7 @@ public class Combinations{
         
 //        System.out.println("\nArrayList in descending order:");
        for(Screening scr: possibleScreenings){
-            System.out.println(scr.getRating());
+ //           System.out.println(scr.getRating());
         }
     }
     public static Comparator<Screening> ScreeningRatingComparator 
