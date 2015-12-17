@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0ebad47d80495caef26b7ea2340152b027705d33
 
 import java.io.*;
 import java.util.Scanner;
@@ -192,7 +196,7 @@ public class Combinations{
             Integer[] screen = new Integer[m];
             combinations(0, 0, ratingsMap.get(s), screen, 0.0, m);
         }
-        
+	System.out.println("Posible Screenings: "+ possibleScreenings.size());        
         return possibleScreenings;
     }
     

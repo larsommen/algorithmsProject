@@ -17,7 +17,11 @@ public class Run{
         String movieFile = "/Users/arangholm/algorithmsProject/Code/greedy/2.csv";
         String actorMovieFile = "asr.csv";
         
+<<<<<<< HEAD
+        Combinations c = new Combinations("../../data/ActorsLarge.csv", "../../data/MoviesLarge.csv", "../../data/30RelLarge.csv", 3);
+=======
         Combinations c = new Combinations(actorFile, movieFile, actorMovieFile, 3);
+>>>>>>> 0eae80c3c57e2f7c9a6c85241936911162a655f1
         c.run();
         //Phase 1
         c.findCombinations(3);
